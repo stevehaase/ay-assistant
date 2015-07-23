@@ -1,12 +1,12 @@
 var _ = require('lodash');
 var passport = require('passport');
-var InstagramStrategy = require('passport-instagram').Strategy;
+//var InstagramStrategy = require('passport-instagram').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
-var GitHubStrategy = require('passport-github').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+//var GitHubStrategy = require('passport-github').Strategy;
+//var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+//var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var OAuthStrategy = require('passport-oauth').OAuthStrategy;
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
@@ -26,7 +26,7 @@ passport.deserializeUser(function(id, done) {
 /**
  * Sign in with Instagram.
  */
-passport.use(new InstagramStrategy(secrets.instagram,function(req, accessToken, refreshToken, profile, done) {
+/*passport.use(new InstagramStrategy(secrets.instagram,function(req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ instagram: profile.id }, function(err, existingUser) {
       if (existingUser) {
@@ -66,7 +66,7 @@ passport.use(new InstagramStrategy(secrets.instagram,function(req, accessToken, 
     });
   }
 }));
-
+*/
 /**
  * Sign in using Email and Password.
  */
@@ -150,6 +150,7 @@ passport.use(new FacebookStrategy(secrets.facebook, function(req, accessToken, r
 /**
  * Sign in with GitHub.
  */
+ /*
 passport.use(new GitHubStrategy(secrets.github, function(req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ github: profile.id }, function(err, existingUser) {
@@ -241,7 +242,7 @@ passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tok
 
 /**
  * Sign in with Google.
- */
+ *
 passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ google: profile.id }, function(err, existingUser) {
@@ -288,7 +289,7 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
 
 /**
  * Sign in with LinkedIn.
- */
+ *
 passport.use(new LinkedInStrategy(secrets.linkedin, function(req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ linkedin: profile.id }, function(err, existingUser) {
@@ -337,7 +338,7 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, accessToken, r
 
 /**
  * Tumblr API OAuth.
- */
+ *
 passport.use('tumblr', new OAuthStrategy({
     requestTokenURL: 'http://www.tumblr.com/oauth/request_token',
     accessTokenURL: 'http://www.tumblr.com/oauth/access_token',
@@ -359,7 +360,7 @@ passport.use('tumblr', new OAuthStrategy({
 
 /**
  * Foursquare API OAuth.
- */
+ *
 passport.use('foursquare', new OAuth2Strategy({
     authorizationURL: 'https://foursquare.com/oauth2/authorize',
     tokenURL: 'https://foursquare.com/oauth2/access_token',
@@ -380,7 +381,7 @@ passport.use('foursquare', new OAuth2Strategy({
 
 /**
  * Venmo API OAuth.
- */
+ *
 passport.use('venmo', new OAuth2Strategy({
     authorizationURL: 'https://api.venmo.com/v1/oauth/authorize',
     tokenURL: 'https://api.venmo.com/v1/oauth/access_token',

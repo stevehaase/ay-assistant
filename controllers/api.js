@@ -5,7 +5,7 @@ var async = require('async');
 var cheerio = require('cheerio');
 var request = require('request');
 var graph = require('fbgraph');
-var LastFmNode = require('lastfm').LastFmNode;
+/*var LastFmNode = require('lastfm').LastFmNode;
 var tumblr = require('tumblr.js');
 var foursquare = require('node-foursquare')({ secrets: secrets.foursquare });
 var Github = require('github-api');
@@ -18,6 +18,7 @@ var clockwork = require('clockwork')({ key: secrets.clockwork.apiKey });
 var paypal = require('paypal-rest-sdk');
 var lob = require('lob')(secrets.lob.apiKey);
 var ig = require('instagram-node').instagram();
+*/
 var Y = require('yui/yql');
 var _ = require('lodash');
 
@@ -34,7 +35,7 @@ exports.getApi = function(req, res) {
 /**
  * GET /api/foursquare
  * Foursquare API example.
- */
+ *
 exports.getFoursquare = function(req, res, next) {
   var token = _.find(req.user.tokens, { kind: 'foursquare' });
   async.parallel({
@@ -68,7 +69,7 @@ exports.getFoursquare = function(req, res, next) {
 /**
  * GET /api/tumblr
  * Tumblr API example.
- */
+ *
 exports.getTumblr = function(req, res, next) {
   var token = _.find(req.user.tokens, { kind: 'tumblr' });
   var client = tumblr.createClient({
@@ -138,7 +139,7 @@ exports.getScraping = function(req, res, next) {
 /**
  * GET /api/github
  * GitHub API Example.
- */
+ *
 exports.getGithub = function(req, res, next) {
   var token = _.find(req.user.tokens, { kind: 'github' });
   var github = new Github({ token: token.accessToken });
@@ -156,8 +157,8 @@ exports.getGithub = function(req, res, next) {
 /**
  * GET /api/aviary
  * Aviary image processing example.
- */
-exports.getAviary = function(req, res) {
+ *
+ exports.getAviary = function(req, res) {
   res.render('api/aviary', {
     title: 'Aviary API'
   });
@@ -166,7 +167,7 @@ exports.getAviary = function(req, res) {
 /**
  * GET /api/nyt
  * New York Times API example.
- */
+ *
 exports.getNewYorkTimes = function(req, res, next) {
   var query = querystring.stringify({ 'api-key': secrets.nyt.key, 'list-name': 'young-adult' });
   var url = 'http://api.nytimes.com/svc/books/v2/lists?' + query;
@@ -184,7 +185,7 @@ exports.getNewYorkTimes = function(req, res, next) {
 /**
  * GET /api/lastfm
  * Last.fm API example.
- */
+ *
 exports.getLastfm = function(req, res, next) {
   var lastfm = new LastFmNode(secrets.lastfm);
   async.parallel({
@@ -258,7 +259,7 @@ exports.getLastfm = function(req, res, next) {
 /**
  * GET /api/twitter
  * Twiter API example.
- */
+ *
 exports.getTwitter = function(req, res, next) {
   var token = _.find(req.user.tokens, { kind: 'twitter' });
   var T = new Twit({
