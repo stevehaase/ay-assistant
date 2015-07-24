@@ -31,8 +31,8 @@ module.exports = {
   },
   
   mandrill: {
-    user: process.env.MANDRILL_USER || 'stevehaase1@gmail.com',
-    password: process.env.MANDRILL_PASSWORD || 'mjBghjPv1OR7h_kRbeEmCg'
+    user: process.env.MANDRILL_USER || '',
+    password: process.env.MANDRILL_PASSWORD || ''
   },
 
   sendgrid: {
@@ -50,8 +50,8 @@ module.exports = {
   },
 
   facebook: {
-    clientID: process.env.FACEBOOK_ID || '958936057497698',
-    clientSecret: process.env.FACEBOOK_SECRET || 'a8ce5644a8d0a92419fabf54d22ed5cc',
+    clientID: process.env.FACEBOOK_ID || '',
+    clientSecret: process.env.FACEBOOK_SECRET || '',
     callbackURL: '/auth/facebook/callback',
     passReqToCallback: true
   },
