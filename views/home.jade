@@ -1,27 +1,50 @@
 extends layout
 
 block content
-  h1 Welcome to the Yoga Teacher Assistant
-  p.lead Your source for productivity and sacred sanity.
-  hr
-  .row
-    .col-sm-6
-      h2 Notes
-      p Capture your thoughts from teaching sessions. Jot down your favorite moments from workshops or classes.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 To Dos
-      p Keep track of your tasks and manage your todos.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Inspiration
-      p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Zen Agenda
-      p Keep track of your activities in a handy heads-up view.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
+  if !user 
+    h1 Welcome to the Yoga Teacher Assistant
+    p.lead Your source for productivity and sacred sanity.
+    hr
+    .row
+      .col-sm-6
+        h2 Notes
+        p Capture your thoughts from teaching sessions. Jot down your favorite moments from workshops or classes.
+        p
+          a.btn.btn-default(href='#', role='button') View details »
+      .col-sm-6
+        h2 To Dos
+        p Keep track of your tasks and manage your todos. Never let something slip through the cracks again.
+        p
+          a.btn.btn-default(href='#', role='button') View details »
+      .col-sm-6
+        h2 Inspiration
+        p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
+        p
+          a.btn.btn-default(href='#', role='button') View details »
+      .col-sm-6
+        h2 Zen Agenda
+        p Keep track of your activities in a handy heads-up view.
+        p
+          a.btn.btn-default(href='#', role='button') View details »
+  if user
+    .row
+      .col-sm-6
+        h2 Notes
+        p Capture your thoughts from teaching sessions. Jot down your favorite moments from workshops or classes.
+        p
+          a.btn.btn-default(href='#', role='button') Add Note »
+      .col-sm-6
+        h2 To Dos
+        p Keep track of your tasks and manage your todos. Never let something slip through the cracks again.
+        p
+          a.btn.btn-default(href='#', role='button') Add Todo »
+      .col-sm-6
+        h2 Inspiration
+        p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
+        p
+          a.btn.btn-default(href='#', role='button') Add a Picture or Quote »
+      .col-sm-6
+        h2 Zen Agenda
+        p Keep track of your activities in a handy heads-up view.
+        p
+          a.btn.btn-default(href='#', role='button') Add Calendar Item »
