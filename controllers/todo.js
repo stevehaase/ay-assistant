@@ -7,6 +7,7 @@ exports.postTodo = function(req, res, next){
 		console.log(user);
 		user.save(function(err){
 			if (err) return next(err);
+			res.redirect('/');
 			res.render('home.jade', {todos: user.todo});
 		})
 	});
