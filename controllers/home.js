@@ -3,9 +3,14 @@
  * Home page.
  */
 exports.index = function(req, res) {
-
-  res.render('home', {
-    title: 'Home',
-    todos: req.user.todo
-  });
+  if (req.user){
+  	res.render('home', {
+	    title: 'Yoga Teacher Assistant',
+	    todos: req.user.todo
+	});
+  } else {
+  	res.render('home', {
+	    title: 'Yoga Teacher Assistant'
+	});
+  } 
 };

@@ -39,8 +39,13 @@ block content
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group
             input.form-control(type='text', name='todo', id='todo', placeholder='Type a todo and hit enter')
-        each item in todos
-          p= item
+        if todos 
+          each item, index in todos
+            p.checkbox
+              input(type="checkbox", name="completed", id=index) 
+              span= item
+        if !todos
+          p Add a todo!
         
             
       .col-sm-6
