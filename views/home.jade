@@ -35,9 +35,14 @@ block content
           a.btn.btn-default(href='#', role='button') Add Note »
       .col-sm-6
         h2 To Dos
-        p Keep track of your tasks and manage your todos. Never let something slip through the cracks again.
-        p
-          a.btn.btn-default(href='#', role='button') Add Todo »
+        form(method='POST', action='/todo')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .form-group
+            input.form-control(type='text', name='todo', id='todo', placeholder='Type a todo and hit enter')
+        each item in todos
+          p= item
+        
+            
       .col-sm-6
         h2 Inspiration
         p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
