@@ -44,6 +44,9 @@ block content
             p.checkbox
               input(type="checkbox", name="completed", id=index, onclick="completeTodo("+index+")") 
               span= item
+        if completedTodos
+          each item in completedTodos
+            p= item  
         if !todos
           p Add a todo!
         
