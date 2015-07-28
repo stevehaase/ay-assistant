@@ -12,7 +12,7 @@ var errorHandler = require('errorhandler');
 var lusca = require('lusca');
 var methodOverride = require('method-override');
 var multer  = require('multer');
-
+var jquery = require('jquery');
 var _ = require('lodash');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('express-flash');
@@ -98,6 +98,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 //post new todo
 app.post('/todo', todoController.postTodo);
+app.post('/todoComplete', todoController.completeTodo)
 
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);

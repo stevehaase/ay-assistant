@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
   password: String,
 
   todo: Array,
+  completedTodo: Array,
 
   facebook: String,
   twitter: String,

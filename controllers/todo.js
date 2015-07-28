@@ -12,3 +12,19 @@ exports.postTodo = function(req, res, next){
 		})
 	});
 };
+
+exports.completeTodo = function(req, res, next){
+	User.findById(req.user.id, function(err, user){
+		if (err) return next(err)
+		var num = req.body.item;
+		var thingDone = user.todo[num];
+		user.completedTodo.unshift(thingDone);
+		user.todo.splice(num, 1);
+		user.save(function(err){
+			if (err) return next(err);
+			res.render('home.jade', {todos: user.todo});
+		})
+		
+	})
+
+}

@@ -38,11 +38,11 @@ block content
         form(method='POST', action='/todo')
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group
-            input.form-control(type='text', name='todo', id='todo', placeholder='Type a todo and hit enter')
+            input.form-control(type='text', name='todo', id='todo', placeholder='Type a todo and hit enter', autofocus)
         if todos 
           each item, index in todos
             p.checkbox
-              input(type="checkbox", name="completed", id=index) 
+              input(type="checkbox", name="completed", id=index, onclick="completeTodo("+index+")") 
               span= item
         if !todos
           p Add a todo!

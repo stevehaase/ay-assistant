@@ -30,6 +30,7 @@
     "github-api": "^0.10.6",
     "instagram-node": "^0.5.7",
     "jade": "^1.11.0",
+    "jquery": "^2.1.4",
     "lastfm": "^0.9.2",
     "less": "^2.5.1",
     "lob": "^3.4.0",
