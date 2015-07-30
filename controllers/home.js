@@ -9,7 +9,8 @@ exports.index = function(req, res) {
   	res.render('home', {
 	    title: 'Yoga Teacher Assistant',
 	    todos: req.user.todo,
-	    completeTodos: req.user.completedTodo
+	    completeTodos: req.user.completedTodo,
+	    notes: req.user.notes
 	});
   } else {
   	res.render('home', {

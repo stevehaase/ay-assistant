@@ -30,6 +30,7 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var todoController = require('./controllers/todo');
+var noteController = require('./controllers/notes');
 
 /**
  * API keys and Passport configuration.
@@ -99,6 +100,9 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 //post new todo
 app.post('/todo', todoController.postTodo);
 app.post('/todoComplete', todoController.completeTodo)
+
+//post new note
+app.post('/notes', noteController.postNote);
 
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);

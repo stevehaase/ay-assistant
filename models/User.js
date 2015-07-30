@@ -8,6 +8,7 @@ var userSchema = new mongoose.Schema({
 
   todo: Array,
   completedTodo: Array,
+  notes: Array,
 
   facebook: String,
   twitter: String,
