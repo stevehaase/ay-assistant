@@ -7,7 +7,7 @@ exports.postTodo = function(req, res, next){
 			user.todo.unshift(req.body.todo);	
 			user.save(function(err){
 				if (err) return next(err);
-				res.render('home.jade', {todos: user.todo});
+				res.redirect('/');
 			})
 		}
 		
@@ -24,7 +24,6 @@ exports.completeTodo = function(req, res, next){
 			user.todo.splice(num, 1);	
 			user.save(function(err){
 				if (err) return next(err);
-				res.json({todos: user.todo, completedTodos: user.completedTodo});
 				res.redirect('/');
 			})
 		}

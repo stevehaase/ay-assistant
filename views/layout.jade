@@ -14,7 +14,10 @@ html
             type: 'POST',
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
             url: '/todoComplete',
-            data: {item: num}
+            data: {item: num},
+            success: function() {
+              window.location.reload(true);
+            }
           });
       
        }

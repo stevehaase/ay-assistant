@@ -9,12 +9,11 @@ exports.index = function(req, res) {
   	res.render('home', {
 	    title: 'Yoga Teacher Assistant',
 	    todos: req.user.todo,
-	    script: todoScript.completeTodo
+	    completeTodos: req.user.completedTodo
 	});
   } else {
   	res.render('home', {
-	    title: 'Yoga Teacher Assistant',
-	    script: todoScript.completeTodo
+	    title: 'Yoga Teacher Assistant'
 	});
   } 
 };
