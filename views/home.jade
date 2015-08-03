@@ -30,13 +30,16 @@ block content
     .row
       .col-sm-6
         h2 Notes
-        form(method='POST', action='/notes')
+        form(method='POST', action='/notes', id='notesfrm')
           input(type='hidden', name='_csrf', value=_csrf)
-          input.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note')
-          a.btn.btn-default(href='#', role='button', type='submit') Add Note »
+          input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
+          textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='10', form='notesfrm')  
+          input.btn.btn-default(type='submit', value='Add Note »')
         if notes
           each note in notes
-            p= note
+            h4= note.title
+            p= note.note
+            span='(Created at: ' + moment(note.date).format("MM/DD/YYYY") + ')'
       .col-sm-6
         h2 To Dos
         form(method='POST', action='/todo')
