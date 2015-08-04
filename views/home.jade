@@ -29,19 +29,24 @@ block content
   if user
     .row
       .col-sm-6
-        h2 Notes
+        h2.header Notes
         form(method='POST', action='/notes', id='notesfrm')
           input(type='hidden', name='_csrf', value=_csrf)
           input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
-          textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='10', form='notesfrm')  
+          textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='5', form='notesfrm')  
+          br
           input.btn.btn-default(type='submit', value='Add Note »')
+          br
+          br
         if notes
           each note in notes
             h4= note.title
-            p= note.note
-            span='(Created at: ' + moment(note.date).format("MM/DD/YYYY") + ')'
+            p(style='white-space:pre;')= note.note
+            span
+              em= moment(note.date).format("MM/DD/YYYY") + ' at ' + moment(note.date).format("hh:mm a")
+            hr
       .col-sm-6
-        h2 To Dos
+        h2.header To Dos
         form(method='POST', action='/todo')
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group
@@ -59,12 +64,12 @@ block content
         
             
       .col-sm-6
-        h2 Inspiration
+        h2.header Inspiration
         p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
         p
           a.btn.btn-default(href='#', role='button') Add a Picture or Quote »
       .col-sm-6
-        h2 Zen Agenda
+        h2.header Zen Agenda
         p Keep track of your activities in a handy heads-up view.
         p
           a.btn.btn-default(href='#', role='button') Add Calendar Item »
