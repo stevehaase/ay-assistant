@@ -48,7 +48,7 @@ app.locals.moment = require('moment');
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB);
+mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
