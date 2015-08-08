@@ -1,5 +1,18 @@
 var User = require('../models/User');
 
+exports.getNotes = function(req, res) {
+	var allNotes = [];
+	req.user.notes.sort(function(a,b){
+		return b.date - a.date;
+	});
+	allNotes = req.user.notes;
+	res.render('notes', {
+	  title: 'Notes',
+	  notes: allNotes
+	});
+};
+
+
 exports.postNote = function(req, res, next){
 	var note = {}
 	console.log(req.body);
@@ -11,7 +24,7 @@ exports.postNote = function(req, res, next){
 		user.notes.push(note);
 		user.save(function(err){
 			if (err) return next(err);
-			res.redirect('/');
+			res.redirect('/notes');
 		})
 
 	})

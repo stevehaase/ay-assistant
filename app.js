@@ -107,6 +107,7 @@ app.post('/todoComplete', todoController.completeTodo)
 app.post('/notes', noteController.postNote);
 
 app.get('/', homeController.index);
+app.get('/notes', noteController.getNotes)
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
