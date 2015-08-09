@@ -99,19 +99,23 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 
-//post new todo
-app.post('/todo', todoController.postTodo);
-app.post('/todoComplete', todoController.completeTodo)
-
-//post new note
-app.post('/notes', noteController.postNote);
-
 app.get('/', homeController.index);
+
+//manage todos
+app.post('/todo', todoController.postTodo);
+app.post('/todofocus', todoController.postToDoFocus);
+app.post('/todoComplete', todoController.completeTodo);
+app.get('/todos', todoController.getTodos);
+
+//manage notes
+app.post('/notes', noteController.postNote);
 app.get('/notes', noteController.getNotes);
 app.get('/notes/:id', noteController.getOneNote);
 app.get('/notes/edit/:id', noteController.editNote);
 app.get('/notes/delete/:id', noteController.deleteNote);
 app.post('/savenote/:id', noteController.saveNote);
+
+//manage users
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);

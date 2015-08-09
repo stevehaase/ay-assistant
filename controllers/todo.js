@@ -1,5 +1,13 @@
 var User = require('../models/User');
 
+exports.getTodos = function(req, res, next){
+	res.render('todos/todos', {
+	    title: 'ToDos',
+	    todos: req.user.todo,
+	    completeTodos: req.user.completedTodo
+	});
+}
+
 exports.postTodo = function(req, res, next){
 	User.findById(req.user.id, function(err, user) {
 		if (err) return next(err);
@@ -7,12 +15,26 @@ exports.postTodo = function(req, res, next){
 			user.todo.unshift(req.body.todo);	
 			user.save(function(err){
 				if (err) return next(err);
-				res.redirect('/');
+				res.redirect('/')
 			})
 		}
 		
 	});
 };
+
+exports.postToDoFocus = function(req, res, next){
+	User.findById(req.user.id, function(err, user) {
+		if (err) return next(err);
+		if (req.body.todo){
+			user.todo.unshift(req.body.todo);	
+			user.save(function(err){
+				if (err) return next(err);
+				res.redirect('/todos')
+			})
+		}
+		
+	});	
+}
 
 exports.completeTodo = function(req, res, next){
 	User.findById(req.user.id, function(err, user){
@@ -32,3 +54,4 @@ exports.completeTodo = function(req, res, next){
 	})
 
 }
+

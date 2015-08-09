@@ -90,6 +90,7 @@ exports.postNote = function(req, res, next){
 		user.notes.push(note);
 		user.save(function(err){
 			if (err) return next(err);
+			req.flash('success', {msg: 'Your note has been saved'});
 			res.redirect('/notes');
 		})
 
