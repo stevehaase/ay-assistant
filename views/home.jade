@@ -45,7 +45,8 @@ block content
               a(href= "notes/"+index)= note.title
             p(style='white-space:pre;')= note.note
             span
-              em= moment(note.date).format("MM/DD/YYYY") + ' at ' + moment(note.date).format("hh:mm a")
+              em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
+              span(style="float: right; padding-right: 70px; color: #aaa;") Edit
             hr
           a(href="/notes") View all notes
       .col-sm-6

@@ -9,5 +9,6 @@ block content
         h4= note.title
         p(style='white-space:pre;')= note.note
         span
-          em= moment(note.date).format("MM/DD/YYYY") + ' at ' + moment(note.date).format("hh:mm a")
+          em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
+          a.span(style="float: right; padding-right: 20%; color: #aaa;" href='/notes/edit/'+note.num) Edit
         hr
