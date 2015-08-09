@@ -7,7 +7,7 @@ exports.getNotes = function(req, res) {
 		return b.date - a.date;
 	});
 	allNotes = req.user.notes;
-	res.render('notes', {
+	res.render('notes/notes', {
 	  title: 'Notes',
 	  notes: allNotes
 	});
@@ -23,7 +23,7 @@ exports.getOneNote = function(req, res) {
 	allNotes = req.user.notes;
 	var myNote = allNotes[place];
 	myNote.num = place;
-	res.render('oneNote', {
+	res.render('notes/oneNote', {
 	  title: myNote.title,
 	  note: myNote
 	});
@@ -38,10 +38,26 @@ exports.editNote = function(req, res, next){
 	allNotes = req.user.notes;
 	var myNote = allNotes[place];
 	myNote.num = place;
-	res.render('editNote', {
+	res.render('notes/editNote', {
 	  title: "Edit" + myNote.title,
 	  note: myNote
 	});	
+}
+
+exports.deleteNote = function(req, res, next){
+	User.findById(req.user.id, function(err, user){
+		if (err) return next(err);
+		user.notes.sort(function(a,b){
+			return b.date - a.date;
+		});
+		var place = req.params.id;
+		user.notes.splice(place, 1);
+		user.save(function(err){
+			if (err) return next(err);
+			req.flash('success', {msg: 'Note has been deleted'});
+			res.redirect('/notes');
+		})
+	})	
 }
 
 exports.saveNote = function(req, res, next){

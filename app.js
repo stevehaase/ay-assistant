@@ -110,6 +110,7 @@ app.get('/', homeController.index);
 app.get('/notes', noteController.getNotes);
 app.get('/notes/:id', noteController.getOneNote);
 app.get('/notes/edit/:id', noteController.editNote);
+app.get('/notes/delete/:id', noteController.deleteNote);
 app.post('/savenote/:id', noteController.saveNote);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
