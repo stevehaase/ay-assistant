@@ -1,6 +1,7 @@
 var User = require('../models/User');
 
 exports.getNotes = function(req, res) {
+	if (!req.user) return res.redirect('/login');
 	var allNotes = [];
 	req.user.notes.sort(function(a,b){
 		return b.date - a.date;
@@ -9,6 +10,21 @@ exports.getNotes = function(req, res) {
 	res.render('notes', {
 	  title: 'Notes',
 	  notes: allNotes
+	});
+};
+
+exports.getOneNote = function(req, res) {
+	if (!req.user) return res.redirect('/login');
+	var place = req.params.id;
+	var allNotes = [];
+	req.user.notes.sort(function(a,b){
+		return b.date - a.date;
+	});
+	allNotes = req.user.notes;
+	var myNote = allNotes[place];
+	res.render('oneNote', {
+	  title: myNote.title,
+	  note: myNote
 	});
 };
 

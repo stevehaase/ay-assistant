@@ -40,8 +40,9 @@ block content
             br
             br
         if notes
-          each note in notes
-            h4= note.title
+          each note, index in notes
+            h4
+              a(href= "notes/"+index)= note.title
             p(style='white-space:pre;')= note.note
             span
               em= moment(note.date).format("MM/DD/YYYY") + ' at ' + moment(note.date).format("hh:mm a")

@@ -48,7 +48,7 @@ app.locals.moment = require('moment');
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB);
+mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
@@ -108,6 +108,7 @@ app.post('/notes', noteController.postNote);
 
 app.get('/', homeController.index);
 app.get('/notes', noteController.getNotes)
+app.get('/notes/:id', noteController.getOneNote)
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
