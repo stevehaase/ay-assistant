@@ -37,9 +37,10 @@ exports.editNote = function(req, res, next){
 	});
 	allNotes = req.user.notes;
 	var myNote = allNotes[place];
+	myNote.note = myNote.note.replace(/<br\s*[\/]?>/gi, "\n");
 	myNote.num = place;
 	res.render('notes/editNote', {
-	  title: "Edit" + myNote.title,
+	  title: "Edit " + myNote.title,
 	  note: myNote
 	});	
 }
@@ -68,7 +69,7 @@ exports.saveNote = function(req, res, next){
 			return b.date - a.date;
 		});
 		note.title = req.body.noteTitle || "Untitled";
-		note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 		var place = req.params.id;
 		note.date = user.notes[place].date || new Date();
 		user.notes.splice(place, 1, note);
@@ -86,7 +87,7 @@ exports.postNote = function(req, res, next){
 		if (err) return next(err);
 		note.title = req.body.noteTitle || "Untitled";
 		note.date = new Date();
-		note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 		user.notes.push(note);
 		user.save(function(err){
 			if (err) return next(err);
