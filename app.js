@@ -22,6 +22,8 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 
+var gapi = require('./controllers/gapi');
+
 /**
  * Controllers (route handlers).
  */
@@ -31,6 +33,7 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var todoController = require('./controllers/todo');
 var noteController = require('./controllers/notes');
+var calendarController = require('./controllers/gapi')
 
 /**
  * API keys and Passport configuration.
@@ -115,6 +118,16 @@ app.get('/notes/edit/:id', noteController.editNote);
 app.get('/notes/delete/:id', noteController.deleteNote);
 app.post('/savenote/:id', noteController.saveNote);
 
+//manage calendar
+app.get('/agenda', function(req, res){
+  var locals = {
+    title: 'gonna auth',
+    url: gapi.url
+  };
+  res.render('calendar/agenda', locals)
+});
+
+
 //manage users
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
@@ -153,6 +166,7 @@ app.post('/api/clockwork', apiController.postClockwork);
 app.get('/api/foursquare', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getFoursquare);
 app.get('/api/tumblr', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getTumblr);
 */
+app.get('/api/google', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getCalendar)
 app.get('/api/facebook', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getFacebook);
 /*app.get('/api/github', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getGithub);
 app.get('/api/twitter', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getTwitter);
@@ -185,10 +199,26 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'] }));
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-  res.redirect(req.session.returnTo || '/');
+app.get('/auth/google', passport.authenticate('google', { access_type: 'offline', scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'] }));
+app.get('/auth/google/callback', function(req, res){
+  var code = req.query.code;
+  gapi.client.getToken(code, function(err, tokens){
+    gapi.client.credentials = tokens;
+    getData();
+  })
+  var getData = function() {
+    gapi.oauth.userinfo.get().withAuthClient(gapi.client).execute(function(err, results){
+        console.log(results);
+    });
+    gapi.cal.calendarList.list().withAuthClient(gapi.client).execute(function(err, results){
+      console.log(results);
+    });
+  };
 });
+
+/*passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');*/
+
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');

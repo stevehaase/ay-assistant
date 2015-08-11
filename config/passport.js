@@ -13,6 +13,7 @@ var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var secrets = require('./secrets');
 var User = require('../models/User');
 
+
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -286,6 +287,8 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
     });
   }
 }));
+
+
 
 /**
  * Sign in with LinkedIn.

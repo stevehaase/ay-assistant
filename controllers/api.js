@@ -5,6 +5,8 @@ var async = require('async');
 var cheerio = require('cheerio');
 var request = require('request');
 var graph = require('fbgraph');
+var google = require('googleapis');
+var calendar = google.calendar('v3');
 /*var LastFmNode = require('lastfm').LastFmNode;
 var tumblr = require('tumblr.js');
 var foursquare = require('node-foursquare')({ secrets: secrets.foursquare });
@@ -87,6 +89,47 @@ exports.getTumblr = function(req, res, next) {
     });
   });
 };
+
+/**
+  * GET /api/google
+  * Google API example.
+  */
+exports.getCalendar = function(req, res, next){
+  var token = _.find(req.user.tokens, {kind: 'google'});
+  var clientSecret = secrets.google.clientSecret;
+  var clientId = secrets.google.clientID;
+  var redirectUrl = secrets.google.callbackURL;
+  var OAuth2 = google.auth.OAuth2;
+  var oauth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
+  oauth2Client.setCredentials({'accessToken': token.accessToken});
+  google.options({ auth: oauth2Client });
+  console.log(oauth2Client);
+  calendar.events.list({
+      auth: oauth2Client,
+      calendarId: 'primary',
+      timeMin: (new Date()).toISOString(),
+      maxResults: 10,
+      singleEvents: true,
+      orderBy: 'startTime'
+    }, function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      var events = response.items;
+      if (events.length == 0) {
+        console.log('No upcoming events found.');
+      } else {
+        console.log('Upcoming 10 events:');
+        for (var i = 0; i < events.length; i++) {
+          var event = events[i];
+          var start = event.start.dateTime || event.start.date;
+          console.log('%s - %s', start, event.summary);
+        }
+      }
+  });
+}
+
 
 /**
  * GET /api/facebook
