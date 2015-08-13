@@ -12,6 +12,8 @@ var passport = require('passport');
 
 passport.authorize()
 
+var gapi = require('../controllers/gapi');
+
 /*
 getAccessToken(oauth2Client, function() {
   // retrieve calendar
@@ -43,6 +45,8 @@ getAccessToken(oauth2Client, function() {
 */
 
 exports.getAgenda = function(req, res, next){
+	gapi.listEvents();
+
 	/*var allTokens = req.user.tokens;
 	var googleTokenArray = [];
 	for (var i = 0; i < allTokens.length; i++) {
@@ -53,7 +57,7 @@ exports.getAgenda = function(req, res, next){
 	res.render('calendar/agenda', {
 		title: 'Agenda',
 		agenda: 'call mom' 
-		});
+	});
 }
 /*
 function authorize(credentials, token, callback) {
