@@ -78,10 +78,11 @@ block content
         p
           a.btn.btn-default(href='#', role='button') Add a Picture or Quote »
       .col-sm-6
-        h2.header Zen Agenda
+        h2.header 
+          a(href='/agenda') Zen Agenda
         p Keep track of your activities in a handy heads-up view.
         p
-          a.btn.btn-default(href='#', role='button') Add Calendar Item »
+          a.btn.btn-default(href='/auth/google/calendar', role='button') Connect Google Calendar »
 
   script(type="text/javascript").
     function myScript(index){

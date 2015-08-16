@@ -252,6 +252,7 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
         done(err);
       } else {
         User.findById(req.user.id, function(err, user) {
+          console.log(refreshToken, accessToken)
           user.google = profile.id;
           user.tokens.push({ kind: 'google', accessToken: accessToken });
           user.profile.name = user.profile.name || profile.displayName;

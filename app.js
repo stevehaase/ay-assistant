@@ -33,7 +33,7 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var todoController = require('./controllers/todo');
 var noteController = require('./controllers/notes');
-var calendarController = require('./controllers/gapi')
+var calendarController = require('./controllers/calendar')
 
 /**
  * API keys and Passport configuration.
@@ -119,13 +119,7 @@ app.get('/notes/delete/:id', noteController.deleteNote);
 app.post('/savenote/:id', noteController.saveNote);
 
 //manage calendar
-app.get('/agenda', function(req, res){
-  var locals = {
-    title: 'gonna auth',
-    url: gapi.url
-  };
-  res.render('calendar/agenda', locals)
-});
+app.get('/agenda', calendarController.getAgenda);
 
 
 //manage users
@@ -199,23 +193,21 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/google', passport.authenticate('google', { access_type: 'offline', scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'] }));
-app.get('/auth/google/callback', function(req, res){
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res){
+  res.redirect(req.session.returnTo || '/');
+});
+app.get('/auth/google/calendar', function(req, res){
+  res.redirect(gapi.url)
+})
+app.get('/oauth2callback', function(req, res){
   var code = req.query.code;
   gapi.client.getToken(code, function(err, tokens){
+    if (err) console.log(err);
     gapi.client.credentials = tokens;
-    getData();
+    res.redirect('/agenda');
   })
-  var getData = function() {
-    gapi.oauth.userinfo.get().withAuthClient(gapi.client).execute(function(err, results){
-        console.log(results);
-    });
-    gapi.cal.calendarList.list().withAuthClient(gapi.client).execute(function(err, results){
-      console.log(results);
-    });
-  };
-});
-
+})
 /*passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');*/
 
