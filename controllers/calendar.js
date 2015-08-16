@@ -14,6 +14,7 @@ passport.authorize()
 
 var gapi = require('../controllers/gapi');
 
+
 /*
 getAccessToken(oauth2Client, function() {
   // retrieve calendar
@@ -44,8 +45,38 @@ getAccessToken(oauth2Client, function() {
 });
 */
 
+
+
 exports.getAgenda = function(req, res, next){
-	gapi.listEvents();
+  var calendar = google.calendar('v3');
+  calendar.events.list({
+    auth: gapi.client,
+    calendarId: 'primary',
+    timeMin: (new Date()).toISOString(),
+    maxResults: 10,
+    singleEvents: true,
+    orderBy: 'startTime'
+  }, function(err, response) {
+    if (err) {
+      console.log('The API returned an error: ' + err);
+      return;
+    }
+    var events = response.items;
+    if (events.length == 0) {
+      console.log('No upcoming events found.');
+    } else {
+      console.log('Upcoming 10 events:');
+      for (var i = 0; i < events.length; i++) {
+        var event = events[i];
+        var start = event.start.dateTime || event.start.date;
+        console.log('%s - %s', start, event.summary);
+      }
+    }
+    res.render('calendar/agenda', {
+		title: 'Agenda',
+		agenda: events 
+	});
+  });
 
 	/*var allTokens = req.user.tokens;
 	var googleTokenArray = [];
@@ -54,10 +85,6 @@ exports.getAgenda = function(req, res, next){
 	}
 	var googleToken = googleTokenArray[0].accessToken;
 	authorize(secrets.google, googleToken, listEvents);*/
-	res.render('calendar/agenda', {
-		title: 'Agenda',
-		agenda: 'call mom' 
-	});
 }
 /*
 function authorize(credentials, token, callback) {
