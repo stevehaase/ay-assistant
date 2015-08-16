@@ -87,7 +87,7 @@ module.exports = {
   gcal: {
     clientID: process.env.GCAL_ID || '468994396954-7v4j1qdoi90q8d1rjr19btqppnpn2898.apps.googleusercontent.com',
     clientSecret: process.env.GCAL_SECRET || 'pW1j4caI9WsZKIJ8tWmGLCMc',
-    callbackURL: 'http://localhost:3000/oauth2callback',
+    callbackURL: process.env.GCAL_URL || 'http://localhost:3000/oauth2callback',
     passReqToCallback: true
   },
 
