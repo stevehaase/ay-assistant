@@ -1,6 +1,7 @@
 var User = require('../models/User');
 
 exports.getTodos = function(req, res, next){
+	if (!req.user) return res.redirect('/login');
 	res.render('todos/todos', {
 	    title: 'ToDos',
 	    todos: req.user.todo,

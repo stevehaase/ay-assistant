@@ -53,6 +53,14 @@ block content
             hr
      
           a(href="/notes") View all notes
+
+
+        h2.header Inspiration
+        p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
+        p
+          a.btn.btn-default(href='#', role='button') Add a Picture or Quote »
+
+
       .col-sm-6
         h2.header 
           a(href="/todos") To Dos
@@ -60,29 +68,26 @@ block content
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group
             input.form-control(type='text', name='todo', id='todo', placeholder='Type a todo and hit enter', autofocus)
-        if todos 
+        if todos.length > 0 
           each item, index in todos
             p
               input(type="checkbox", name="completed", id=index, onclick="completeTodo("+index+")") 
               span(class="check")= item
-        if completedTodos
-          each item in completedTodos
-            p= item  
-        if !todos
+        else
           p Add a todo!
+        if completedTodo
+          each item in completedTodo
+            p= item  
+
         
-            
-      .col-sm-6
-        h2.header Inspiration
-        p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
-        p
-          a.btn.btn-default(href='#', role='button') Add a Picture or Quote »
-      .col-sm-6
-        h2.header 
-          a(href='/agenda') Zen Agenda
-        p Keep track of your activities in a handy heads-up view.
-        p
-          a.btn.btn-default(href='/auth/google/calendar', role='button') Connect Google Calendar »
+        
+
+        if (!agenda)
+          h2.header 
+            a(href='/auth/google/calendar') Zen Agenda
+          p Keep track of your activities in a handy heads-up view.
+          p
+            a.btn.btn-default(href='/auth/google/calendar', role='button') Connect Google Calendar »
 
   script(type="text/javascript").
     function myScript(index){

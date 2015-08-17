@@ -205,6 +205,7 @@ app.get('/oauth2callback', function(req, res){
   gapi.client.getToken(code, function(err, tokens){
     if (err) console.log(err);
     gapi.client.credentials = tokens;
+    //TODO: Save the credentials to the User object and reference them if there's an error.
     res.redirect('/agenda');
   })
 })
