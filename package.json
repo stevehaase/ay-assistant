@@ -40,6 +40,7 @@
     "lusca": "^1.1.1",
     "method-override": "^2.3.3",
     "moment": "^2.10.6",
+    "moment-timezone": "^0.4.0",
     "mongoose": "^4.0.7",
     "morgan": "^1.6.1",
     "multer": "^0.1.8",

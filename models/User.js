@@ -9,6 +9,11 @@ var userSchema = new mongoose.Schema({
   todo: Array,
   completedTodo: Array,
   notes: {type: Array, "default": []},
+  gcal: {
+    access_token: String,
+    token_type: String,
+    expiry_date: Number
+  },
 
 
   facebook: String,

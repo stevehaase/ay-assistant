@@ -6,4 +6,8 @@ block content
 				h2.header Agenda
 				ol
 				- for event in agenda
-					li= moment(event.start.dateTime).format("MMM DD hh:mm a") + ' ' + event.summary
+					if (event.start.dateTime)
+						li= moment(event.start.dateTime).format("MMM DD hh:mm a") + ' ' + event.summary
+					else
+						li= moment(event.start.date).format("MMM DD") + ' ' + event.summary
+

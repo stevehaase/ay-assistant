@@ -9,14 +9,18 @@ var oauth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
 var calendar = google.calendar('v3');
 
 var passport = require('passport');
+var User = require('../models/User');
 
 passport.authorize()
 
 var gapi = require('../controllers/gapi');
 
-
 exports.getAgenda = function(req, res, next){
-  if (!gapi.client.credentials) return res.redirect('/auth/google/calendar');
+  console.log(gapi.client.credentials, req.user.gcal)
+  if ((Object.keys(gapi.client.credentials).length == 0) && !req.user.gcal.access_token) return res.redirect('/auth/google/calendar');
+  if ((Object.keys(gapi.client.credentials).length == 0) && req.user.gcal.access_token){
+    gapi.client.credentials = req.user.gcal;
+  }
   var calendar = google.calendar('v3');
   calendar.events.list({
     auth: gapi.client,
@@ -28,7 +32,7 @@ exports.getAgenda = function(req, res, next){
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
-      return;
+      return res.redirect('/auth/google/calendar');
     }
     var events = response.items;
     if (events.length == 0) {
@@ -42,9 +46,14 @@ exports.getAgenda = function(req, res, next){
     }
     res.locals.agenda = events;
     res.render('calendar/agenda', {
-		title: 'Agenda'
-	});
+      title: 'Agenda'
+    });
+    
   });
 
+     
 
+  
+  //save this to the DB or to the app's local variables, so we can call it from the home page (and also save the Agenda items for the day)
+  
 }

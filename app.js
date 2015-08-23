@@ -47,6 +47,7 @@ var passportConf = require('./config/passport');
 var app = express();
 
 app.locals.moment = require('moment');
+app.locals.tz = require('moment-timezone');
 
 /**
  * Connect to MongoDB.
@@ -205,7 +206,7 @@ app.get('/oauth2callback', function(req, res){
   gapi.client.getToken(code, function(err, tokens){
     if (err) console.log(err);
     gapi.client.credentials = tokens;
-    //TODO: Save the credentials to the User object and reference them if there's an error.
+    gapi.setTokens(req.user.id, tokens);
     res.redirect('/agenda');
   })
 })

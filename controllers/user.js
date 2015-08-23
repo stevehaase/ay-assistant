@@ -5,6 +5,7 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
 var secrets = require('../config/secrets');
+var gapi = require('./gapi')
 
 /**
  * GET /login
@@ -51,6 +52,9 @@ exports.postLogin = function(req, res, next) {
  * Log out.
  */
 exports.logout = function(req, res) {
+  //reset the client credentials on logout.
+  gapi.client.credentials = {};
+  console.log(gapi.client.credentials)
   req.logout();
   res.redirect('/');
 };
