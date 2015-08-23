@@ -80,7 +80,7 @@ module.exports = {
   google: {
     clientID: process.env.GOOGLE_ID || '46571755874-lh4lv9va6hstanppi7ui1dgj01skjhq9.apps.googleusercontent.com',
     clientSecret: process.env.GOOGLE_SECRET || 'PnMpaumgGrBzvT75Euuy9cGc',
-    callbackURL: 'http://localhost:3000/auth/google/callback',
+    callbackURL: process.env.GOOGLE_CALLBACK || 'http://localhost:3000/auth/google/callback',
     passReqToCallback: true
   },
 
