@@ -25,7 +25,6 @@ exports.client = oauth2Client;
 
 exports.next3 = function(user){
 	console.log('running next3', user)
-	oauth2Client.credentials = user.gcal;
 	var calendar = googleapis.calendar('v3');
 	calendar.events.list({
 		auth: oauth2Client,	

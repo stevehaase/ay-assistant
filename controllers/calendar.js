@@ -21,6 +21,11 @@ exports.getAgenda = function(req, res, next){
   if ((Object.keys(gapi.client.credentials).length == 0) && req.user.gcal.access_token){
     gapi.client.credentials = req.user.gcal;
   }
+  if (gapi.client.credentials){
+    if (gapi.client.credentials.access_token != req.user.gcal.access_token){
+      gapi.client.credentials = req.user.gcal;
+    }
+  }
   var calendar = google.calendar('v3');
   calendar.events.list({
     auth: gapi.client,

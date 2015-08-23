@@ -6,7 +6,7 @@ var gapi = require('./gapi');
 
 exports.index = function(req, res) {
   if (req.user){
-  	gapi.next3(req.user);
+  	//gapi.next3(req.user);
   	var recentNotes = [];
   	req.user.notes.sort(function(a,b){
   		return b.date - a.date;
