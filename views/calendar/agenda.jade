@@ -4,10 +4,14 @@ block content
 		.row
 			.col-sm-12
 				h2.header Agenda
-				ol
-				- for event in agenda
-					if (event.start.dateTime)
-						li= moment(event.start.dateTime).format("MMM DD hh:mm a") + ' ' + event.summary
-					else
-						li= moment(event.start.date).format("MMM DD") + ' ' + event.summary
+				div.ta-event-nest.rows.light
+					ol#events
+					- for event in agenda
+						if (event.start.dateTime)
+							li.ta-event
+								p.ta-event-title= event.summary
+								p.ta-event-summary-time= moment(event.start.dateTime).format("MMM DD hh:mm a")
+									span(style="float:right;")= event.location
+						else
+							li= moment(event.start.date).format("MMM DD") + ' ' + event.summary
 

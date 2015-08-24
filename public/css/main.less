@@ -66,3 +66,475 @@ footer {
   margin-right: 6px;
 }
 
+// Agenda view
+// -------------------------
+
+
+.ta-event-nest {
+  width: 100%;
+  position: relative;
+  padding: em(30) 0;
+  @media (max-width: 767px) {
+    font-size: 12px;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    font-size: 14px;
+  }
+  @media (min-width: 992px) {
+    font-size: 16px;
+  }
+  &.interior {
+    .ta-event-list {
+      display: none;
+    }
+    .ta-interior-details {
+      display: block;
+    }
+  }
+  &:not(.interior) {
+    .ta-event-list {
+      display: block;
+    }
+    .ta-interior-details {
+      display: none;
+    }
+  }
+  // styles specific to light theme
+  &.light {
+    a.ta-trigger-event-details {
+      border: 1px solid gray;
+    }
+    .ta-event-summary-time, .ta-event-summary-location {
+      color: #AAA;
+    }
+    .ta-event-list-back-link, .ta-event-icon-detail, .ta-interior-details address, .ta-event-icon-detail a, .ta-interior-details address a, .ta-event:hover .ta-event-title {
+      color: #57FFCD;
+    }
+    .ta-event-subtitle, .ta-share-subtitle, .ta-event-description {
+      color: gray;
+    }
+    .ta-interior-details hr {
+      border-top: 1px solid gray;
+    }
+    .ta-interior-details .ta-event-photo-wrapper {
+      border: 1px solid gray;
+    }
+    a.ta-trigger-event-details:hover {
+      border: 1px solid gray;
+    }
+    .ta-event-photo {
+      background-color: gray;
+      i {
+        color: gray;
+      }
+    }
+    
+    &.rows {
+      a.ta-trigger-event-details {
+        .ta-event-photo {
+          @media (max-width: 767px) {
+            border: 1px solid gray;
+          }
+          @media (min-width: 768px) {
+            border-right: 1px solid gray;
+            transition: 0.25s border-right ease-in-out;
+          }
+        }
+        &:hover {
+          .ta-event-photo {
+            @media (max-width: 767px) {
+              border: 1px solid gray;
+            }
+            @media (min-width: 768px) {
+              border-right: 1px solid gray;
+            }
+          }
+        }
+      }
+    }
+    &.cards {
+      a.ta-trigger-event-details {
+        .ta-event-photo {
+          border-bottom: 1px solid gray;
+          transition: 0.25s border-bottom ease-in-out;
+        }
+        &:hover {
+          .ta-event-photo {
+            border-bottom: 1px solid gray;
+          }
+        }
+      }
+    }
+  }
+  
+  // styles specific to row layout
+  &.rows {
+    a.ta-trigger-event-details {
+      margin: em(10) 0;
+      .ta-event-overview {
+        @media (max-width: 767px) {
+          padding: 10px 10px 10px 79px;
+        }
+        @media (min-width: 768px) {
+          padding: em(19) em(32) em(19) calc(22.7% + 2em);
+        }
+      }
+      .ta-event-photo {
+        @media (max-width: 767px) {
+          width: 48px;
+          height: 48px;
+          top: 16px;
+          left: 15px;
+          transition: 0.25s border ease-in-out;
+        }
+        @media (min-width: 768px) {
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 22.7%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  // styles specfic to card layout
+  &.cards {
+    a.ta-trigger-event-details {
+      margin: em(10) em(5);
+      .ta-event-overview {
+        @media (max-width: 767px) {
+          padding: em(196) 10px 10px 10px;
+        }
+        @media (min-width: 768px) {
+          padding: em(196) em(30) em(25);
+        }
+      }
+      .ta-event-photo {
+        top: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: em(176);
+      }
+    }
+    ol#events {
+      display: block;
+      padding: 0;
+      margin: 0;
+      &:before, &:after {
+        content: " ";
+        display: table;
+      }
+      &:after {
+        clear: both;
+      }
+      > li {
+        display: block;
+        height: auto;
+        float: left;
+      }
+      @media only screen {
+        > li {
+          width: 100%;
+          list-style: none;
+        }
+        > li:nth-of-type(1n) {
+          clear: none;
+        }
+        > li:nth-of-type(1n+1) {
+          clear: both;
+        }
+      }
+      @media only screen and (min-width: 768px) {
+        > li {
+          width: 50%;
+          list-style: none;
+        }
+        > li:nth-of-type(1n) {
+          clear: none;
+        }
+        > li:nth-of-type(2n+1) {
+          clear: both;
+        }
+      }
+    }
+  }
+  // global styling regardless of theme or layout
+  .ta-event-list {
+    position: relative;
+    width: 100%;
+    ol {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .ta-event {
+    list-style-type: none;
+    border: 1px solid #CCC;
+    margin: 0.625em 0;
+    padding: 5px;
+    max-width: 837px;
+    a.ta-trigger-event-details {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      transition: 0.25s border ease-in-out;
+      &:focus {
+        outline: 0;
+      }
+      .ta-event-summary-time, .ta-event-summary-location {
+        font-size: em(16);
+        font-weight: 400;
+        line-height: (23 / 16);
+        margin: em(3.5, 16) 0;
+        color: #CCC;
+      }
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+  .ta-interior-details {
+    .ta-event-link {
+      display: block;
+      font-size: em(36);
+      line-height: 1.25;
+      color: $brand;
+      font-weight: 300;
+      text-decoration: none;
+    }
+    .ta-event-summary-time i {
+      width: em(20, 16);
+    }
+    .ta-event-icon-detail {
+      display: block;
+      font-size: em(16);
+      font-weight: 400;
+      line-height: (23 / 16);
+      margin-bottom: em(13, 16);
+      i {
+        width: em(20, 16);
+      }
+    }
+    .ta-event-subtitle {
+      display: block;
+      font-size: em(18);
+      line-height: (25 / 18);
+      font-weight: 300;
+      padding-top: em(10, 18);
+      padding-bottom: em(11, 18);
+    }
+    .ta-share-subtitle {
+      display: block;
+      font-size: em(18);
+      line-height: (25 / 18);
+      font-weight: 300;
+      padding-top: em(5, 18);
+      padding-bottom: 0;
+    }
+    address {
+      display: block;
+      font-size: em(16);
+      font-weight: 400;
+      line-height: (23 / 16);
+      margin-bottom: em(13, 16);
+      i {
+        width: em(20, 16);
+      }
+      .ta-event-location-street, .ta-event-location-city {
+        margin-left: 1.5em;
+      }
+    }
+    .ta-event-icon-detail, address {
+      a {
+        text-decoration: none;
+        &:hover {
+          color: $brand;
+        }
+      }
+    }
+    hr {
+      border: 0;
+      margin-top: em(27);
+      margin-bottom: em(27);
+    }
+    .ta-event-photo-wrapper {
+      width: 100%;
+      display: block;
+      position: relative;
+      padding-bottom: 100%;
+      margin-top: em(8);
+      @media (max-width: 767px) {
+        padding-bottom: 50%;
+      }
+      @media (min-width: 768px) {
+        padding-bottom: 100%;
+      }
+      .ta-event-photo {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+    .ta-event-cta {
+      padding: em(20) 0 0;
+      .ta-event-cta-btn {
+        display: block;
+        width: 100%;
+        font-size: em(16);
+        line-height: (23 / 16);
+        letter-spacing: em(3, 16);
+        font-weight: 400;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        color: white;
+        background-color: gray;
+        border-radius: em(3, 16);
+        padding: em(15, 16);
+        transition: 0.25s background-color ease-in-out;
+        &:hover {
+          background-color: darken(gray, 10%);
+        }
+      }
+    }
+    .mapNest {
+      width: 100%;
+      position: relative;
+      @media (max-width: 767px) {
+        padding-bottom: 75%;
+      }
+      @media (min-width: 768px) {
+        padding-bottom: 36.6%;
+      }
+      #ta-map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    div[class*="span"] {
+      @media (max-width: 767px) {
+        width: 100% !important;
+        display: block !important;
+        margin: 0 !important;
+      }
+    }
+  }
+  .ta-event-description {
+    font-size: em(18);
+    font-weight: 300;
+    line-height: (25 / 18);
+    display: block;
+    margin-bottom: em(13, 18);
+    @media (max-width: 991px) {
+      font-size: em(16);
+    }
+  }
+  .ta-event-photo {
+    position: absolute;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+    i {
+      display: inline-block;
+      vertical-align: middle;
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
+      @media (min-width: 768px) {
+        font-size: em(41);
+      }
+    }
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -0.25em;
+    }
+  }
+  .ta-event-title, .ta-event-warning {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: #555;
+    text-decoration: none;
+    transition: 0.25s color ease-in-out;
+  }
+  .ta-event-list-back-link {
+    display: block;
+    font-size: em(16);
+    font-weight: 400;
+    line-height: (23 / 16);
+    letter-spacing: em(1.14, 16);
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: em(10, 16);
+    i {
+      margin-right: em(8, 16);
+    }
+    &:hover {
+      color: $brand;
+    }
+  }
+  .share-icons {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      li {
+        display: inline-block;
+        margin: 0 em(5.5);
+        a {
+          font-size: em(30);
+          transition: 0.25s color ease-in-out;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        &.mail a {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+  address {
+    font-style: normal;
+  }
+  summary {
+    span {
+      display: block;
+    }
+  }
+  .ta-event-details {
+    display: none;
+  }
+  .gomapMarker {
+    display: block;
+    width: 200px;
+    height: auto;
+    i {
+      display: none;
+    }
+    a {
+      color: gray;
+      text-decoration: none;
+      &:hover {
+        color: gray;
+      }
+    }
+  }
+}

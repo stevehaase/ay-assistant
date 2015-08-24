@@ -17,8 +17,8 @@
           a(href='/notes') Notes
         li(class=title=='ToDos'?'active':undefined)
           a(href='/todos') ToDos
-        li(class=title=='Contact'?'active':undefined)
-          a(href='/contact') Contact
+        li(class=title=='Agenda'?'active':undefined)
+          a(href='/agenda') Agenda
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title=='Login'?'active':undefined)
@@ -37,6 +37,9 @@
             ul.dropdown-menu
               li
                 a(href='/account') My Account
+              li.divider
+              li(class=title=='Contact'?'active':undefined)
+                a(href='/contact') Contact
               li.divider
               li
                 a(href='/logout') Logout
