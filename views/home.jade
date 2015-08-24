@@ -91,18 +91,6 @@ block content
         else
           h2.header
             a(href='/agenda') Zen Agenda
-          if (typeof agenda != 'string')
-            - for event in agenda
-              if (event.start.dateTime)
-                li= moment(event.start.dateTime).format("MMM DD hh:mm a") + ' ' + event.summary
-              else
-                li= moment(event.start.date).format("MMM DD") + ' ' + event.summary
-          else if (agenda == 'Not loaded')
-            p 
-              a(href='/agenda') Click to load agenda
-            p
-          else
-            p= agenda
           p
             a.btn.btn-default(href='/agenda', role='button') See agenda »
 
