@@ -11,7 +11,10 @@ block content
 							li.ta-event
 								p.ta-event-title= event.summary
 								p.ta-event-summary-time= moment(event.start.dateTime).format("MMM DD hh:mm a")
-									span(style="float:right;")= event.location
+									span.ta-event-summary-location= event.location
 						else
-							li= moment(event.start.date).format("MMM DD") + ' ' + event.summary
+							li.ta-event
+								p.ta-event-title= event.summary
+								p.ta-event-summary-time= moment(event.start.date).format("MMM DD")
+									span.ta-event-summary-location= event.location
 

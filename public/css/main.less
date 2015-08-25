@@ -275,25 +275,21 @@ footer {
     margin: 0.625em 0;
     padding: 5px;
     max-width: 837px;
-    a.ta-trigger-event-details {
-      position: relative;
-      display: block;
-      text-decoration: none;
-      transition: 0.25s border ease-in-out;
-      &:focus {
-        outline: 0;
-      }
-      .ta-event-summary-time, .ta-event-summary-location {
-        font-size: em(16);
-        font-weight: 400;
-        line-height: (23 / 16);
-        margin: em(3.5, 16) 0;
-        color: #CCC;
-      }
-      &:first-child {
-        margin-top: 0;
-      }
-    }
+  }
+  .ta-event-summary-time {
+    font-size: em(16);
+    font-weight: 400;
+    line-height: (23 / 16);
+    margin: em(3.5, 16) 0;
+    color: #CCC;
+  }
+  .ta-event-summary-location {
+    float:right; 
+    overflow: hidden; 
+    max-width: 50%;
+  }
+  &:first-child {
+    margin-top: 0;
   }
   .ta-interior-details {
     .ta-event-link {
