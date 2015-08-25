@@ -1,4 +1,5 @@
 var User = require('../models/User');
+var Note = require('../models/Notes');
 
 exports.getNotes = function(req, res) {
 	if (!req.user) return res.redirect('/login');
@@ -95,5 +96,38 @@ exports.postNote = function(req, res, next){
 			res.redirect('/notes');
 		})
 
+	})
+}
+
+exports.shareNote = function(req, res, next){
+	var place = req.params.id;
+	var allNotes = [];
+	req.user.notes.sort(function(a,b){
+		return b.date - a.date;
+	});
+	allNotes = req.user.notes;
+	var myNote = allNotes[place];
+
+	var note = new Note;
+	note.authorId = req.user._id;
+	note.authorName = req.user.profile.name;
+	note.noteContent = myNote.note;
+	note.noteTitle = myNote.title;
+	note.date = myNote.date;
+	note.save(function(err){
+		if (err) next(err);
+		res.redirect('/notes/shared/'+note._id);
+	});
+}
+
+exports.publicNote = function(req, res, next){
+	var noteId = req.params.publicId
+	Note.findById(noteId, function(err, note){
+		if (err) return next(err);
+		res.render('notes/oneNote', {
+		  title: note.noteTitle,
+		  note: note.noteContent,
+		  author: note.authorName
+		});
 	})
 }

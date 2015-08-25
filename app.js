@@ -117,7 +117,10 @@ app.get('/notes', noteController.getNotes);
 app.get('/notes/:id', noteController.getOneNote);
 app.get('/notes/edit/:id', noteController.editNote);
 app.get('/notes/delete/:id', noteController.deleteNote);
+app.get('/notes/share/:id', noteController.shareNote);
+app.get('/notes/shared/:publicId', noteController.publicNote);
 app.post('/savenote/:id', noteController.saveNote);
+
 
 //manage calendar
 app.get('/agenda', calendarController.getAgenda);

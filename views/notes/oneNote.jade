@@ -6,12 +6,12 @@ block content
       h2 
         a(href="/notes") Notes
 
-        h4= note.title
-        p!= note.note
+        h4= title
+        p!= note
         span
           em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
-          a.span(style="float: right; padding-right: 10%; color: #aaa; cursor: pointer;" onclick='myScript('+note.num+')') Delete
-          a.span(style="float: right; padding-right: 7px; color: #aaa;" href='/notes/edit/'+note.num) Edit 
+          p(style="float: right; padding-right: 10%; color: #aaa;") From 
+            span= author
 
         hr
 
