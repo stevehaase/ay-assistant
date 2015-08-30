@@ -27,7 +27,10 @@ exports.getOneNote = function(req, res) {
 	myNote.num = place;
 	res.render('notes/oneNote', {
 	  title: myNote.title,
-	  note: myNote
+	  note: myNote.note,
+	  attachment: myNote.attachment,
+	  author: myNote.authorName,
+	  date: myNote.date
 	});
 };
 
