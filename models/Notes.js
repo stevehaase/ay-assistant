@@ -7,7 +7,7 @@ var noteSchema = new mongoose.Schema({
   noteContent: String,
   authorId: mongoose.Schema.ObjectId,  
   authorName: String,
-  attachments: Buffer,
+  attachmentLink: String,
   date: Date,
   noteTitle: String,
 });

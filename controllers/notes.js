@@ -88,19 +88,19 @@ exports.postNote = function(req, res, next){
 		console.log('theres a file');
 		files.uploadFile(req, res, next);
 	}
-	User.findById(req.user.id, function(err, user){
-		if (err) return next(err);
-		note.title = req.body.noteTitle || "Untitled";
-		note.date = new Date();
-		note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-		user.notes.push(note);
-		user.save(function(err){
+	else{
+		User.findById(req.user.id, function(err, user){
 			if (err) return next(err);
-			//req.flash('success', {msg: 'Your note has been saved'});
-			//res.redirect('/notes');
-		})
+			note.title = req.body.noteTitle || "Untitled";
+			note.date = new Date();
+			note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			user.notes.push(note);
+			user.save(function(err){
+				if (err) return next(err);
+			})
 
-	})
+		})
+	}
 }
 
 exports.shareNote = function(req, res, next){
@@ -118,6 +118,7 @@ exports.shareNote = function(req, res, next){
 	note.noteContent = myNote.note;
 	note.noteTitle = myNote.title;
 	note.date = myNote.date;
+	note.attachmentLink = myNote.attachment;
 	note.save(function(err){
 		if (err) next(err);
 		res.redirect('/notes/shared/'+note._id);
@@ -131,6 +132,7 @@ exports.publicNote = function(req, res, next){
 		res.render('notes/oneNote', {
 		  title: note.noteTitle,
 		  note: note.noteContent,
+		  attachment: note.attachmentLink,
 		  author: note.authorName
 		});
 	})

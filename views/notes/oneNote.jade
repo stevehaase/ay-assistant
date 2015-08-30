@@ -8,6 +8,9 @@ block content
 
         h4= title
         p!= note
+        if attachment
+              p 
+                a(href=attachment target="_blank") Attached file 
         span
           em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
           p(style="float: right; padding-right: 10%; color: #aaa;") From 

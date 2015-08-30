@@ -12,7 +12,7 @@ var conn = mongoose.connection;
 exports.uploadFile = function(req, res, next){
 	console.log('starting pipe');
 	var gfs = Grid(conn.db);
-	var savedFile;
+	var savedFile, extension, note = {};
 	var writestream = gfs.createWriteStream({
     	filename: req.files.myFile.name
   	})
@@ -20,7 +20,20 @@ exports.uploadFile = function(req, res, next){
   	writestream.on('close', function(file){
     	console.log(file.filename + " written to DB. Id: " + file._id)
     	savedFile = file._id;
-    	req.flash('success', {msg: 'Your attachment has been saved at ' + secrets.host + '/attachments/' + savedFile});
+    	extension = file.filename.substr(file.filename.length - 3)
+    	User.findById(req.user.id, function(err, user){
+			if (err) return next(err);
+			note.title = req.body.noteTitle || "Untitled";
+			note.date = new Date();
+			note.attachment = 'https://teacher-assistant.herokuapp.com/attachments/' + savedFile + '.' + extension;
+			note.note = req.body.note.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			user.notes.push(note);
+			user.save(function(err){
+				if (err) return next(err);
+			})
+		})
+
+    	req.flash('success', {msg: 'Your attachment has been saved at ' + secrets.host + '/attachments/' + savedFile + '.' + extension});
     	//todo: set Heroku env variable.
 		res.redirect('/notes');
   	})	
@@ -30,9 +43,8 @@ exports.downloadFile = function(req, res, next){
 	console.log('starting read');
 	var gfs = Grid(conn.db);
 	var options = {
-		_id: req.params.id
+		_id: req.params.id.substr(0, req.params.id.length - 4)
 	}
-	//todo: add file extension to end of .mov files
 	var readstream = gfs.createReadStream(options)
 	readstream.pipe(res);
 }

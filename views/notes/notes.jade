@@ -46,6 +46,9 @@ block content
             h4
               a(href= "notes/"+index)= note.title
             p!= note.note
+            if note.attachment
+              p 
+                a(href=note.attachment target="_blank") Attachment 
             span
               em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
               a.span(style="float: right; padding-right: 10%; color: #aaa;" href='/notes/share/'+index) Share 
