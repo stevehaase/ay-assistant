@@ -44,6 +44,13 @@ exports.editNote = function(req, res, next){
 	var myNote = allNotes[place];
 	myNote.note = myNote.note.replace(/<br\s*[\/]?>/gi, "\n");
 	myNote.num = place;
+	/* 
+	******
+	
+	TODO: Include the file attachment link here so we can save it.
+
+	******
+	*/
 	res.render('notes/editNote', {
 	  title: "Edit " + myNote.title,
 	  note: myNote
@@ -68,10 +75,6 @@ exports.deleteNote = function(req, res, next){
 
 exports.saveNote = function(req, res, next){
 	var note = {};
-	if (req.files.myFile){
-		console.log('theres a file');
-		files.uploadFile(req, res, next);
-	}
 	User.findById(req.user.id, function(err, user){
 		if (err) return next(err);
 		user.notes.sort(function(a,b){
