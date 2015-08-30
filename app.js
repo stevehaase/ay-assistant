@@ -21,7 +21,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
-//var multer = require('multer');
+var multer = require('multer');
 
 var gapi = require('./controllers/gapi');
 
@@ -87,7 +87,12 @@ app.use(logger('dev'));
 app.use(favicon(path.join(__dirname, 'public/favicon.png')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer({ dest: path.join(__dirname, 'uploads') }));
+app.use(multer({ 
+  dest: path.join(__dirname, 'uploads'), 
+  rename: function(fieldname, filename){
+        return filename + '^' + Date.now(); 
+    }, 
+  }));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
