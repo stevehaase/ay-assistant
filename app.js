@@ -21,19 +21,19 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
-var multer = require('multer');
+//var multer = require('multer');
 
 var gapi = require('./controllers/gapi');
 
 
 // to upload files
-var uploading = multer({
+/*var uploading = multer({
   dest: __dirname + "./uploads",
   rename: function(fieldname, filename){
         return filename + '^' + Date.now(); 
     },
-  limits: {fileSize: 16000000, files:1},
-})
+  limits: {fileSize: 16000000, files:1}
+})*/
 
 
 /**
@@ -136,7 +136,7 @@ app.get('/notes/delete/:id', noteController.deleteNote);
 app.get('/notes/share/:id', noteController.shareNote);
 app.get('/notes/shared/:publicId', noteController.publicNote);
 app.post('/savenote/:id', noteController.saveNote);
-app.post('/public/uploads', uploading.single('myFile'), fileController.uploadFile)
+app.post('/public/uploads', fileController.uploadFile)
 app.get('/attachments/:id', fileController.downloadFile)
 app.get('/public/download', fileController.downloadFile)
 
