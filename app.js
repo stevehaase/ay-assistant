@@ -28,7 +28,7 @@ var gapi = require('./controllers/gapi');
 
 // to upload files
 var uploading = multer({
-  dest: __dirname + "./public/uploads",
+  dest: __dirname + "./uploads",
   rename: function(fieldname, filename){
         return filename + '^' + Date.now(); 
     },
@@ -136,7 +136,7 @@ app.get('/notes/delete/:id', noteController.deleteNote);
 app.get('/notes/share/:id', noteController.shareNote);
 app.get('/notes/shared/:publicId', noteController.publicNote);
 app.post('/savenote/:id', noteController.saveNote);
-app.post('/public/uploads', uploading, fileController.uploadFile)
+app.post('/public/uploads', uploading.single('myFile'), fileController.uploadFile)
 app.get('/attachments/:id', fileController.downloadFile)
 app.get('/public/download', fileController.downloadFile)
 
