@@ -21,8 +21,20 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
+var multer = require('multer');
 
 var gapi = require('./controllers/gapi');
+
+
+// to upload files
+var uploading = multer({
+  dest: __dirname + "./public/uploads",
+  rename: function(fieldname, filename){
+        return filename + '^' + Date.now(); 
+    },
+  limits: {fileSize: 16000000, files:1},
+})
+
 
 /**
  * Controllers (route handlers).
@@ -33,7 +45,8 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var todoController = require('./controllers/todo');
 var noteController = require('./controllers/notes');
-var calendarController = require('./controllers/calendar')
+var calendarController = require('./controllers/calendar');
+var fileController = require('./controllers/files');
 
 /**
  * API keys and Passport configuration.
@@ -52,10 +65,13 @@ app.locals.tz = require('moment-timezone');
 /**
  * Connect to MongoDB.
  */
+
 mongoose.connect(secrets.db);
-mongoose.connection.on('error', function() {
+var conn = mongoose.connection;
+conn.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
+
 
 /**
  * Express configuration.
@@ -120,6 +136,9 @@ app.get('/notes/delete/:id', noteController.deleteNote);
 app.get('/notes/share/:id', noteController.shareNote);
 app.get('/notes/shared/:publicId', noteController.publicNote);
 app.post('/savenote/:id', noteController.saveNote);
+app.post('/public/uploads', uploading, fileController.uploadFile)
+app.get('/attachments/:id', fileController.downloadFile)
+app.get('/public/download', fileController.downloadFile)
 
 
 //manage calendar

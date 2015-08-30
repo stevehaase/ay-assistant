@@ -1,5 +1,6 @@
 var User = require('../models/User');
 var Note = require('../models/Notes');
+var files = require('./files');
 
 exports.getNotes = function(req, res) {
 	if (!req.user) return res.redirect('/login');
@@ -76,7 +77,6 @@ exports.saveNote = function(req, res, next){
 		user.notes.splice(place, 1, note);
 		user.save(function(err){
 			if (err) return next(err);
-			res.redirect('/notes/'+place);
 		})
 
 	})
@@ -84,6 +84,10 @@ exports.saveNote = function(req, res, next){
 
 exports.postNote = function(req, res, next){
 	var note = {}
+	if (req.files.myFile){
+		console.log('theres a file');
+		files.uploadFile(req, res, next);
+	}
 	User.findById(req.user.id, function(err, user){
 		if (err) return next(err);
 		note.title = req.body.noteTitle || "Untitled";
@@ -92,8 +96,8 @@ exports.postNote = function(req, res, next){
 		user.notes.push(note);
 		user.save(function(err){
 			if (err) return next(err);
-			req.flash('success', {msg: 'Your note has been saved'});
-			res.redirect('/notes');
+			//req.flash('success', {msg: 'Your note has been saved'});
+			//res.redirect('/notes');
 		})
 
 	})

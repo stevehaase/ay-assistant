@@ -31,10 +31,12 @@ block content
     .row
       .col-sm-12
         h2.header Notes
-        form(method='POST', action='/notes', id='notesfrm')
+        form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
           input(type='hidden', name='_csrf', value=_csrf)
           input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
           textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='10', form='notesfrm')  
+          | Attach a file:
+          input(type="file" name="myFile") 
           br
           input.btn.btn-default(type='submit', value='Add Note »')
           br
