@@ -68,6 +68,10 @@ exports.deleteNote = function(req, res, next){
 
 exports.saveNote = function(req, res, next){
 	var note = {};
+	if (req.files.myFile){
+		console.log('theres a file');
+		files.uploadFile(req, res, next);
+	}
 	User.findById(req.user.id, function(err, user){
 		if (err) return next(err);
 		user.notes.sort(function(a,b){
