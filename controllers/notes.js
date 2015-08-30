@@ -87,6 +87,8 @@ exports.saveNote = function(req, res, next){
 		user.notes.splice(place, 1, note);
 		user.save(function(err){
 			if (err) return next(err);
+			req.flash('success', {msg: 'Note has been updated'});
+			res.redirect('/notes');
 		})
 
 	})
