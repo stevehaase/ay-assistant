@@ -43,8 +43,9 @@ exports.uploadFile = function(req, res, next){
 exports.downloadFile = function(req, res, next){
 	console.log('starting read');
 	var gfs = Grid(conn.db);
+	var extensionLength = req.params.id.length - req.params.id.lastIndexOf('.')
 	var options = {
-		_id: req.params.id.substr(0, req.params.id.length - 4)
+		_id: req.params.id.substr(0, req.params.id.length - extensionLength)
 	}
 	var readstream = gfs.createReadStream(options)
 	readstream.pipe(res);
