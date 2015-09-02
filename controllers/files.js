@@ -35,7 +35,6 @@ exports.uploadFile = function(req, res, next){
 		})
 
     	req.flash('success', {msg: 'Your attachment has been saved at ' + secrets.host + '/attachments/' + savedFile + '.' + extension});
-    	//todo: set Heroku env variable.
 		res.redirect('/notes');
   	})	
 }
@@ -47,7 +46,10 @@ exports.downloadFile = function(req, res, next){
 	var options = {
 		_id: req.params.id.substr(0, req.params.id.length - extensionLength)
 	}
-	var readstream = gfs.createReadStream(options).on('error', function(e){return next(e)})
+	var readstream = gfs.createReadStream(options).on('error', function(e){
+		req.flash('errors', {msg: 'The file you are looking cannot be found. Maybe check the URL again?'});
+		res.redirect('/notes');
+	})
 	readstream.pipe(res);
 }
 

@@ -31,7 +31,7 @@ block content
       .col-sm-6
         h2.header 
           a(href="/notes") Notes
-        form(method='POST', action='/notes', id='notesfrm')
+        form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
           input(type='hidden', name='_csrf', value=_csrf)
           p
             input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
