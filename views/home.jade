@@ -37,6 +37,10 @@ block content
             input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
           textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='5', form='notesfrm')  
           br
+          div.note-attachment
+            | Attach a file:
+            input(type="file" name="myFile") 
+          
           input.btn.btn-default(type='submit', value='Add Note »')
           br
           br
@@ -47,8 +51,8 @@ block content
             p!= note.note
             span
               em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
-              a.span(style="float: right; padding-right: 10%; color: #aaa; cursor: pointer;" onclick='myScript('+index+')') Delete
-              a.span(style="float: right; padding-right: 7px; color: #aaa;" href='/notes/edit/'+index) Edit 
+              a.span.delete-note(onclick='myScript('+index+')') Delete
+              a.span.edit-note(href='/notes/edit/'+index) Edit 
 
             hr
      

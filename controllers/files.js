@@ -20,7 +20,8 @@ exports.uploadFile = function(req, res, next){
   	writestream.on('close', function(file){
     	console.log(file.filename + " written to DB. Id: " + file._id)
     	savedFile = file._id;
-    	extension = file.filename.substr(file.filename.length - 3)
+    	//Handle any extension
+    	extension = file.filename.slice(file.filename.lastIndexOf('.')+1);
     	User.findById(req.user.id, function(err, user){
 			if (err) return next(err);
 			note.title = req.body.noteTitle || "Untitled";
