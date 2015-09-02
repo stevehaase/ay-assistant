@@ -47,7 +47,7 @@ exports.downloadFile = function(req, res, next){
 		_id: req.params.id.substr(0, req.params.id.length - extensionLength)
 	}
 	var readstream = gfs.createReadStream(options).on('error', function(e){
-		req.flash('errors', {msg: 'The file you are looking cannot be found. Maybe check the URL again?'});
+		req.flash('errors', {msg: 'The file you are looking for cannot be found. Maybe check the URL again?'});
 		res.redirect('/notes');
 	})
 	readstream.pipe(res);
