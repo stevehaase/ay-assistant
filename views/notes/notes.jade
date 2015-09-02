@@ -49,7 +49,7 @@ block content
             p!= note.note
             if note.attachment
               p 
-                a(href=note.attachment target="_blank") Attachment 
+                a(href=note.attachment target="_blank") Attached file
             span
               em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
               a.span.share-note(href='/notes/share/'+index) Share 
