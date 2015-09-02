@@ -47,8 +47,7 @@ exports.downloadFile = function(req, res, next){
 	var options = {
 		_id: req.params.id.substr(0, req.params.id.length - extensionLength)
 	}
-	var readstream = gfs.createReadStream(options)
-	if (err) return next(err);
+	var readstream = gfs.createReadStream(options).on('error', function(e){return next(e)})
 	readstream.pipe(res);
 }
 
