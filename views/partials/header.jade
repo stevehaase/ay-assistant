@@ -6,19 +6,20 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/')
-        i.fa.fa-heart
-        | Yoga Teacher Assistant
+      span(class=title=='Yoga Teacher Assistant'?'homepage':undefined)
+        a.navbar-brand(href='/')
+          i.fa.fa-heart
+          | Yoga Teacher Assistant
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=title=='Yoga Teacher Assistant'?'active':undefined)
-          a(href='/') Home
         li(class=title=='Notes'?'active':undefined)
           a(href='/notes') Notes
         li(class=title=='ToDos'?'active':undefined)
           a(href='/todos') ToDos
         li(class=title=='Agenda'?'active':undefined)
           a(href='/agenda') Agenda
+        li(class=title=='Inspiration'?'active':undefined)
+          a(href='/inspiration') Inspiration
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title=='Login'?'active':undefined)

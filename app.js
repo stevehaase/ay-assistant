@@ -149,6 +149,14 @@ app.get('/public/download', fileController.downloadFile)
 //manage calendar
 app.get('/agenda', calendarController.getAgenda);
 
+//manage inspiration
+
+app.get('/inspiration', function(req, res, next){
+  res.render('inspiration/inspiration', {
+    Title: "Inspiration"
+  })
+})
+
 
 //manage users
 app.get('/login', userController.getLogin);
