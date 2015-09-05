@@ -21,5 +21,5 @@ $(document).ready(function() {
 				}
 
 				$('#notesfrm').hide()
-
+				$('[data-toggle="tooltip"]').tooltip();
 });
