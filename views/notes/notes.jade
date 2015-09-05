@@ -2,65 +2,71 @@ extends ../layout
 
 block content
 
-  if !user 
-    h1 Welcome to the Yoga Teacher Assistant
-    p.lead Your source for productivity and sacred sanity.
-    hr
-    .row
-      .col-sm-6
-        h2 Notes
-        p Capture your thoughts from teaching sessions. Jot down your favorite moments from workshops or classes.
-        p
-          a.btn.btn-default(href='#', role='button') View details »
-      .col-sm-6
-        h2 To Dos
-        p Keep track of your tasks and manage your todos. Never let something slip through the cracks again.
-        p
-          a.btn.btn-default(href='#', role='button') View details »
-      .col-sm-6
-        h2 Inspiration
-        p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
-        p
-          a.btn.btn-default(href='#', role='button') View details »
-      .col-sm-6
-        h2 Zen Agenda
-        p Keep track of your activities in a handy heads-up view.
-        p
-          a.btn.btn-default(href='#', role='button') View details »
-  if user
-    .row
-      .col-sm-12
-        h2.header Notes
-        form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
-          input(type='hidden', name='_csrf', value=_csrf)
-          input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
-          textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='10', form='notesfrm') 
-          br 
-          div.note-attachment
-            | Attach a file:
-            input(type="file" name="myFile") 
-          input.btn.btn-default(type='submit', value='Add Note »')
-          br
-          br
-        if notes
-          each note, index in notes
-            h4
-              a(href= "notes/"+index)= note.title
-            p!= note.note
-            if note.attachment
-              p 
-                a(href=note.attachment target="_blank") Attached file
-            span
-              em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
-              a.span.share-note(href='/notes/share/'+index) Share 
-              a.span.delete-note(onclick='myScript('+index+')') Delete
-              a.span.edit-note(href='/notes/edit/'+index) Edit 
+	if !user 
+		h1 Welcome to the Yoga Teacher Assistant
+		p.lead Your source for productivity and sacred sanity.
+		hr
+		.row
+			.col-sm-6
+				h2 Notes
+				p Capture your thoughts from teaching sessions. Jot down your favorite moments from workshops or classes.
+				p
+					a.btn.btn-default(href='#', role='button') View details »
+			.col-sm-6
+				h2 To Dos
+				p Keep track of your tasks and manage your todos. Never let something slip through the cracks again.
+				p
+					a.btn.btn-default(href='#', role='button') View details »
+			.col-sm-6
+				h2 Inspiration
+				p Enjoy a beautiful image or inspiring quote. Share your favorite pics with other members of the yoga teacher community.
+				p
+					a.btn.btn-default(href='#', role='button') View details »
+			.col-sm-6
+				h2 Zen Agenda
+				p Keep track of your activities in a handy heads-up view.
+				p
+					a.btn.btn-default(href='#', role='button') View details »
+	if user
+		.row
+			.col-sm-12
+				h2.header Notes 
+					i.fa.fa-pencil(type='submit', style="margin-left: 10%; cursor: pointer;" id="noteBtn" onclick='showNote()')
+				div
+					form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
+						input(type='hidden', name='_csrf', value=_csrf)
+						p
+							input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
+						textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='10', form='notesfrm') 
+						br 
+						div.note-attachment
+							| Attach a file:
+							input(type="file" name="myFile") 
+						input.btn.btn-default(type='submit', value='Save Note »')
+						br
+						br
+				if notes
+					each note, index in notes
+						h4
+							a(href= "notes/"+index)= note.title
+						p!= note.note
+						if note.attachment
+							p 
+								a(href=note.attachment target="_blank") Attached file
+						span
+							em(style="color:#666;")= moment(note.date).format("MMM DD, YY") + ' at ' + moment(note.date).format("hh:mm a")
+							a.span.share-note(href='/notes/share/'+index) Share 
+							a.span.delete-note(onclick='myScript('+index+')') Delete
+							a.span.edit-note(href='/notes/edit/'+index) Edit 
 
-            hr
+						hr
+		
 
-  script(type="text/javascript").
-    function myScript(index){
-      if (window.confirm('Are you sure you want to delete this note?')) window.location.href = '/notes/delete/'+index;
-      else return;
-    }
-  
+	script(type="text/javascript").
+		function myScript(index){
+			if (window.confirm('Are you sure you want to delete this note?')) window.location.href = '/notes/delete/'+index;
+			else return;
+		}
+
+
+	
