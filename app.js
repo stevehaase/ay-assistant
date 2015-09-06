@@ -25,17 +25,6 @@ var multer = require('multer');
 
 var gapi = require('./controllers/gapi');
 
-
-// to upload files
-/*var uploading = multer({
-  dest: __dirname + "./uploads",
-  rename: function(fieldname, filename){
-        return filename + '^' + Date.now(); 
-    },
-  limits: {fileSize: 16000000, files:1}
-})*/
-
-
 /**
  * Controllers (route handlers).
  */
@@ -58,6 +47,7 @@ var passportConf = require('./config/passport');
  * Create Express server.
  */
 var app = express();
+
 
 app.locals.moment = require('moment');
 app.locals.tz = require('moment-timezone');

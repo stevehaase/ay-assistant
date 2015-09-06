@@ -23,7 +23,7 @@ module.exports = {
 
   db: process.env.MONGODB || 'mongodb://localhost:27017/test',
 
-  sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
+  sessionSecret: process.env.SESSION_SECRET || 'The love child of Erin and Steve created for the good of all yogis and their students',
 
   host: process.env.HOST || 'localhost:3000',
 

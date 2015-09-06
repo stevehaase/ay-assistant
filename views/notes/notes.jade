@@ -31,7 +31,9 @@ block content
 		.row
 			.col-sm-12
 				h2.header Notes 
-					i.fa.fa-pencil(type='submit', style="margin-left: 10%; cursor: pointer;" id="noteBtn" data-toggle="tooltip" title="New Note" onclick='showNote()')
+					div.new-note-button(onclick='showNote()' id="noteBtn")
+						i.fa.fa-pencil(type='submit' data-toggle="tooltip" title="New Note")
+						span.new-note-button-span New note
 				div
 					form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
 						input(type='hidden', name='_csrf', value=_csrf)

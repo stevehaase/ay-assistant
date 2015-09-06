@@ -16,4 +16,3 @@
 //= require lib/jquery-2.1.3.min
 //= require lib/bootstrap.min
 //= require main
-//= require ./ckeditor/ckeditor.js
