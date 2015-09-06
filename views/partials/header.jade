@@ -12,14 +12,16 @@
           | Yoga Teacher Assistant
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=title=='Notes'?'active':undefined)
-          a(href='/notes') Notes
-        li(class=title=='ToDos'?'active':undefined)
-          a(href='/todos') ToDos
-        li(class=title=='Agenda'?'active':undefined)
-          a(href='/agenda') Agenda
-        li(class=title=='Inspiration'?'active':undefined)
-          a(href='/inspiration') Inspiration
+        if user
+          li(class=title=='Notes'?'active':undefined)
+            a(href='/notes') Notes
+          li(class=title=='ToDos'?'active':undefined)
+            a(href='/todos') ToDos
+          li(class=title=='Agenda'?'active':undefined)
+            a(href='/agenda') Agenda
+          li(class=title=='Inspiration'?'active':undefined)
+            a(href='/inspiration') Inspiration
+        else
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title=='Login'?'active':undefined)

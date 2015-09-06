@@ -3,6 +3,7 @@ extends ../layout
 block content
   .page-header
     h3 Sign up
+      a.new-note-button-span(href="/login") Already a member? Click here to login.
   form.form-horizontal(id='signup-form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group

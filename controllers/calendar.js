@@ -16,6 +16,7 @@ passport.authorize()
 var gapi = require('../controllers/gapi');
 
 exports.getAgenda = function(req, res, next){
+  if (!req.user) return res.redirect('/login');
   console.log(gapi.client.credentials, req.user.gcal)
   if ((Object.keys(gapi.client.credentials).length == 0) && !req.user.gcal.access_token) return res.redirect('/auth/google/calendar');
   if ((Object.keys(gapi.client.credentials).length == 0) && req.user.gcal.access_token){
