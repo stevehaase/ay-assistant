@@ -61,7 +61,7 @@ exports.postContact = function(req, res) {
 exports.sendNote = function(req, res){
   var from = req.user.email || 'info@aquinyoga.com'
   var name = req.user.name || 'Yoga Teacher Assistant';
-  var body = 'Here is a note from ' + from + '. You can find it at http://app.aquinyoga.com/notes/shared/' + req.params.id;
+  var body = from + 'shared a note with you through the Yoga Teacher Assistant app. You can find it at http://app.aquinyoga.com/notes/shared/' + req.params.id;
   var to = req.body.emails;
   var subject = name + ' shared a yoga note with you';
 

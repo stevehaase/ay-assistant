@@ -8,8 +8,9 @@
         span.icon-bar
       span(class=title=='Yoga Teacher Assistant'?'homepage':undefined)
         a.navbar-brand(href='/')
-          i.fa.fa-heart
-          | Yoga Teacher Assistant
+          div
+            img(src="//cdn2.hubspot.net/hub/161221/file-316467945-png/Aquin_Yoga_Logo_Full.png" style="width: 48px; margin: -11px 5px;")
+            | Yoga Teacher Assistant
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         if user
@@ -27,7 +28,7 @@
           li(class=title=='Login'?'active':undefined)
             a(href='/login') Login
           li(class=title=='Create Account'?'active':undefined)
-            a(href='/signup') Create Account
+            a(href='/signup') Sign up
         else
           li.dropdown(class=title=='Account Management'?'active':undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
