@@ -120,6 +120,7 @@ exports.postNote = function(req, res, next){
 exports.shareNote = function(req, res, next){
 	var place = req.params.id;
 	var allNotes = [];
+	var id = 
 	req.user.notes.sort(function(a,b){
 		return b.date - a.date;
 	});
@@ -143,11 +144,12 @@ exports.publicNote = function(req, res, next){
 	var noteId = req.params.publicId
 	Note.findById(noteId, function(err, note){
 		if (err) return next(err);
-		res.render('notes/oneNote', {
+		res.render('notes/publicNote', {
 		  title: note.noteTitle,
 		  note: note.noteContent,
 		  attachment: note.attachmentLink,
-		  author: note.authorName
+		  author: note.authorName,
+		  id: noteId
 		});
 	})
 }

@@ -56,3 +56,28 @@ exports.postContact = function(req, res) {
     res.redirect('/contact');
   });
 };
+
+
+exports.sendNote = function(req, res){
+  var from = req.user.email || 'info@aquinyoga.com'
+  var name = req.user.name || 'Yoga Teacher Assistant';
+  var body = 'Here is a note from ' + from + '. You can find it at http://app.aquinyoga.com/notes/shared/' + req.params.id;
+  var to = req.body.emails;
+  var subject = name + ' shared a yoga note with you';
+
+  var mailOptions = {
+    to: to,
+    from: from,
+    subject: subject,
+    text: body
+  };
+
+  transporter.sendMail(mailOptions, function(err) {
+    if (err) {
+      req.flash('errors', { msg: err.message });
+      return res.redirect('/notes');
+    }
+    req.flash('success', { msg: 'Your note is in the mail!' });
+    res.redirect('/notes');
+  });
+};

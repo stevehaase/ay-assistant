@@ -135,6 +135,7 @@ app.post('/savenote/:id', noteController.saveNote);
 app.post('/public/uploads', fileController.uploadFile)
 app.get('/attachments/:id', fileController.downloadFile)
 app.get('/public/download', fileController.downloadFile)
+app.post('/sendnote/:id', contactController.sendNote);
 
 
 //manage calendar
