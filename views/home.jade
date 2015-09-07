@@ -34,19 +34,19 @@ block content
 					div.new-note-button(onclick='showNote()' id="noteBtn")
 						i.fa.fa-pencil(type='submit' data-toggle="tooltip" title="New Note")
 						span.new-note-button-span New note
-				form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
-					input(type='hidden', name='_csrf', value=_csrf)
-					p
-						input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
-					textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='5', form='notesfrm')  
-					br
-					div.note-attachment
-						| Attach a file:
-						input(type="file" name="myFile") 
-					
-					input.btn.btn-default(type='submit', value='Save Note »')
-					br
-					br
+				div(style="display: none;" id="notesdiv")
+					form(method='POST', action='/notes', id='notesfrm' enctype="multipart/form-data")
+						input(type='hidden', name='_csrf', value=_csrf)
+						p
+							input.form-control(type='text', name='noteTitle', id='noteTitle', placeholder='Title')
+						textarea.form-control(type='textarea', name='note', id='notes', placeholder='Enter a note', rows='10', form='notesfrm') 
+						br 
+						div.note-attachment
+							| Attach a file:
+							input(type="file" name="myFile") 
+						input.btn.btn-default(type='submit', value='Save Note »')
+						br
+						br
 				if notes
 					each note, index in notes
 						h4
