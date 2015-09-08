@@ -105,6 +105,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
  */
 passport.use(new FacebookStrategy(secrets.facebook, function(req, accessToken, refreshToken, profile, done) {
   if (req.user) {
+    console.log(profile);
     User.findOne({ facebook: profile.id }, function(err, existingUser) {
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a Facebook account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
@@ -116,6 +117,7 @@ passport.use(new FacebookStrategy(secrets.facebook, function(req, accessToken, r
           user.profile.name = user.profile.name || profile.displayName;
           user.profile.gender = user.profile.gender || profile._json.gender;
           user.profile.picture = user.profile.picture || 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+          user.email = user.email || profile.email;
           user.save(function(err) {
             req.flash('info', { msg: 'Facebook account has been linked.' });
             done(err, user);
@@ -132,7 +134,7 @@ passport.use(new FacebookStrategy(secrets.facebook, function(req, accessToken, r
           done(err);
         } else {
           var user = new User();
-          user.email = profile._json.email;
+          user.email = profile._json.email || profile.email;
           user.facebook = profile.id;
           user.tokens.push({ kind: 'facebook', accessToken: accessToken });
           user.profile.name = profile.displayName;
