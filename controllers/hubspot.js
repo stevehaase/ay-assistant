@@ -1,9 +1,11 @@
 var http = require('http');
 var querystring = require('querystring');
+var cookieParser = require('cookie-parser');
 
 exports.postUser = function(req){
 	var postData = querystring.stringify({
-		'email': req.user.email
+		'email': req.user.email,
+		'hs_context': {"hutk": req.cookies.hubspotutk}
 	})
 
 	var options = {

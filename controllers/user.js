@@ -96,7 +96,8 @@ exports.postSignup = function(req, res, next) {
 	//post new user to HubSpot signup form
 
 	var postData = querystring.stringify({
-		'email': req.body.email
+		'email': req.body.email,
+		'hs_context': {"hutk": req.cookies.hubspotutk}
 	})
 
 	var options = {
